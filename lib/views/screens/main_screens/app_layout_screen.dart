@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/bottom_nav_bar.dart';
-import 'package:la_vie/provider/forums.dart';
 import 'package:la_vie/provider/forums_provider.dart';
 import 'package:la_vie/provider/product_provider.dart';
 import 'package:la_vie/provider/seed_provider.dart';
 import 'package:la_vie/provider/tool_provider.dart';
 import 'package:la_vie/utils/color.dart';
-import 'package:la_vie/views/screens/cart_screens/cart_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:la_vie/views/screens/home_screens/home_screen.dart';
-import 'package:la_vie/views/screens/notification_screens/notificationScreen.dart';
-import 'package:la_vie/views/screens/questions_screens/question_screen.dart';
-import 'package:la_vie/views/screens/search_screens/result_not_found.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/plant_provider.dart';
@@ -22,7 +16,6 @@ class AppLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavBar>(context, listen: false);
-    print("huuuuuuuuuuuuuuuuuuu");
     Provider.of<Seed>(context, listen: false).getAllSeeds();
     Provider.of<Tool>(context, listen: false).getAllTools();
     Provider.of<Plant>(context, listen: false).getAllPlants();

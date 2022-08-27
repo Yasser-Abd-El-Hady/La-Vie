@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:la_vie/utils/color.dart';
 
 Widget customText({
   required String text,

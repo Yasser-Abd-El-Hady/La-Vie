@@ -4,19 +4,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:la_vie/models/all_forums_model/all_forums.dart';
 import 'package:la_vie/provider/forums_provider.dart';
-import 'package:la_vie/provider/plant_provider.dart';
 import 'package:la_vie/utils/color.dart';
-import 'package:la_vie/utils/constants.dart';
-import 'package:la_vie/utils/my_icons_icons.dart';
 import 'package:la_vie/utils/screen.dart';
-import 'package:la_vie/views/components/forums.dart';
 import 'package:provider/provider.dart';
-
+import 'package:toast/toast.dart';
 import '../../components/custom_text.dart';
 
 class CreatePostScreen extends StatefulWidget {
-  CreatePostScreen({Key? key}) : super(key: key);
+  const CreatePostScreen({Key? key}) : super(key: key);
 
   @override
   State<CreatePostScreen> createState() => _CreatePostScreenState();
@@ -24,17 +21,19 @@ class CreatePostScreen extends StatefulWidget {
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
   File? image;
-
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  String? img64;
+  var formState = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Screen(context);
-    final provider = Provider.of<Forums>(context).allForums;
-    var titleController;
-    var descriptionController;
-    String img64;
+    ToastContext().init(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Form(
+        key: formState,
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -101,7 +100,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           this.image = imageTemporary;
                         });
                         // print("jkjlklkjl ${image.name}");
-                        final bytes = await File(image.name).readAsBytes();
+
+                        final bytes = await File(image.path).readAsBytes();
                         img64 = base64Encode(bytes);
                       } on PlatformException catch (e) {
                         print("Faild to pick image $e");
@@ -109,31 +109,32 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     },
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Title',
-                        style: TextStyle(color: AppColors.textFieldLabel)),
-                    const SizedBox(height: 2),
-                    TextFormField(
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: Screen.screenHeight / (926 / 35)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Title',
+                          style: TextStyle(color: AppColors.textFieldLabel)),
+                      const SizedBox(height: 2),
+                      TextFormField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(10),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (input) {
+                          if (input!.isEmpty) {
+                            return "Title is empty";
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (input) {
-                        if (input!.isEmpty) {
-                          return "Title is empty";
-                        }
-                        return null;
-                      },
-                      onSaved: (val) {
-                        // _authData['password'] = val!;
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(height: Screen.screenHeight / (926 / 10)),
+                SizedBox(height: Screen.screenHeight / (926 / 35)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -141,10 +142,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         style: TextStyle(color: AppColors.textFieldLabel)),
                     const SizedBox(height: 2),
                     TextFormField(
-                      controller: descriptionController,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
-                        border: OutlineInputBorder(),
+                      controller: _descriptionController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: Screen.screenHeight / (926 / 70)),
+                        border: const OutlineInputBorder(),
                       ),
                       validator: (input) {
                         if (input!.isEmpty) {
@@ -152,26 +155,36 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         }
                         return null;
                       },
-                      onSaved: (val) {
-                        // _authData['password'] = val!;
-                      },
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        child: const Text("Sign up"),
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.primary)),
-                        onPressed: () {},
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: const Text("Post"),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.primary)),
+                      onPressed: () {
+                        if (formState.currentState!.validate()) {
+                          if (image == null) {
+                            Toast.show("Select image first");
+                          } else {
+                            AllForums post = AllForums();
+                            post.title = _titleController.text;
+                            post.description = _descriptionController.text;
+                            post.imageUrl = img64;
+                            Provider.of<Forums>(context, listen: false)
+                                .createPost(post: post)
+                                .then((value) => Navigator.of(context).pop());
+                          }
+                        }
+                      },
                     ),
-                  ],
+                  ),
                 )
               ],
             ),

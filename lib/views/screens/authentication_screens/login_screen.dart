@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/my_icons_icons.dart';
-import 'package:la_vie/views/screens/forums_screens/discussion_forums_screen.dart';
 
 import '../../../utils/screen.dart';
 import 'signup_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Screen(context);
-    var emailController;
-    var passwordController;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Form(
@@ -65,8 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignUpScreen()));
+                                      builder: (context) => SignUpScreen()));
                             },
                             child: const Text(
                               "Sign up",
@@ -111,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     TextStyle(color: AppColors.textFieldLabel)),
                             const SizedBox(height: 3),
                             TextFormField(
-                              controller: emailController,
+                              controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.all(10),
@@ -138,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     TextStyle(color: AppColors.textFieldLabel)),
                             const SizedBox(height: 3),
                             TextFormField(
-                              controller: passwordController,
+                              controller: _passwordController,
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.all(10),
                                 border: OutlineInputBorder(),
@@ -208,12 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {
-                                  print("hggyuguyguguguygugu");
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DiscussionForumsScreen()));
-                                },
+                                onPressed: () {},
                                 icon: const Icon(
                                   MyIcons.facebook,
                                   color: Color(0xff337FFF),

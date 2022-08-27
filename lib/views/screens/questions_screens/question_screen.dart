@@ -11,7 +11,6 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreen extends State<QuestionScreen> {
-  bool _value = false;
   int val = -1;
   @override
   Widget build(BuildContext context) {

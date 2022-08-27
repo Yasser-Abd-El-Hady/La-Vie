@@ -3,7 +3,6 @@ import 'package:la_vie/provider/tool_provider.dart';
 import 'package:la_vie/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/product_provider.dart';
 import '../../../utils/screen.dart';
 
 class ToolsScreen extends StatelessWidget {
@@ -133,7 +132,7 @@ class ToolsScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
-                                SizedBox(height: 3),
+                                const SizedBox(height: 3),
                                 const Text(
                                   "${70} EGP",
                                   style: TextStyle(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/forums_provider.dart';
-import 'package:la_vie/provider/plant_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/my_icons_icons.dart';
@@ -205,7 +204,8 @@ class DiscussionForumsScreen extends StatelessWidget {
                                         horizontal:
                                             Screen.screenWidth / (428 / 5)),
                                     child: Padding(
-                                      padding: EdgeInsets.only(bottom: 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         children: [
                                           const Icon(MyIcons.like),
@@ -243,8 +243,8 @@ class DiscussionForumsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => CreatePostScreen()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const CreatePostScreen()));
         },
         child: const Icon(Icons.add),
         backgroundColor: AppColors.primary,

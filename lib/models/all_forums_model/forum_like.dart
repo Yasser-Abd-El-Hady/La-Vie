@@ -9,10 +9,8 @@ class ForumLikes {
     userId = json['userId'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['forumId'] = this.forumId;
-    data['userId'] = this.userId;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        'forumId': forumId,
+        'userId': userId,
+      };
 }

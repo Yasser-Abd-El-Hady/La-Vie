@@ -54,7 +54,7 @@ class _CartScreenState extends State<CartScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        child: Container(
+                        child: SizedBox(
                           width: Screen.screenWidth / (428 / 373),
                           height: Screen.screenHeight / (926 / 161),
                           child: Row(

@@ -20,13 +20,11 @@ class ForumComments {
     createdAt = json['createdAt'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['forumCommentId'] = this.forumCommentId;
-    data['forumId'] = this.forumId;
-    data['userId'] = this.userId;
-    data['comment'] = this.comment;
-    data['createdAt'] = this.createdAt;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        'forumCommentId': forumCommentId,
+        'forumId': forumId,
+        'userId': userId,
+        'comment': comment,
+        'createdAt': createdAt,
+      };
 }

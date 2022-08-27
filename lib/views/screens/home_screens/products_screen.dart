@@ -139,7 +139,7 @@ class ProductsScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
-                                SizedBox(height: 3),
+                                const SizedBox(height: 3),
                                 Text(
                                   "${provider[index].price} EGP",
                                   style: const TextStyle(

@@ -56,7 +56,6 @@ Widget forumsType({
                 ? Provider.of<ForumsType>(context, listen: false)
                     .changePage("myForums")
                 : null;
-            print("dsiojdoijsdoisjoidsjosdi");
           },
           child: customText(
               text: "My Forums",

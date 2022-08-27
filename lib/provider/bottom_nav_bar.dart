@@ -3,9 +3,8 @@ import 'package:la_vie/views/screens/forums_screens/discussion_forums_screen.dar
 import 'package:la_vie/views/screens/home_screens/home_screen.dart';
 
 import '../views/screens/cart_screens/cart_screen.dart';
-import '../views/screens/notification_screens/notificationScreen.dart';
+import '../views/screens/notification_screens/notification_screen.dart';
 import '../views/screens/questions_screens/question_screen.dart';
-import '../views/screens/search_screens/result_not_found.dart';
 
 class BottomNavBar with ChangeNotifier {
   int _selectedPage = 2;

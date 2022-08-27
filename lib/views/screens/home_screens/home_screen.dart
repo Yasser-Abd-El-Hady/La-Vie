@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/categories.dart';
-import 'package:la_vie/provider/plant_provider.dart';
-import 'package:la_vie/provider/tool_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/categories.dart';
@@ -11,18 +9,12 @@ import 'package:la_vie/views/screens/home_screens/seeds_screen.dart';
 import 'package:la_vie/views/screens/home_screens/tools_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/product_provider.dart';
-import '../../../provider/seed_provider.dart';
-import '../../../utils/constants.dart';
-
 enum Category { all, plants, seeds, tools }
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  int i = 0;
   @override
   Widget build(BuildContext context) {
-    print("djkdkdjhsdksdhkj ${i++}");
     Screen(context);
 
     return SafeArea(

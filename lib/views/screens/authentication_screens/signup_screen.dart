@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:la_vie/provider/authentication_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
+import 'package:la_vie/views/components/text_form_field.dart';
+import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/my_icons_icons.dart';
 import 'login_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _lNameController = TextEditingController();
+  final _fNameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Screen(context);
-    var emailController;
-    var passwordController;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Form(
+        key: _formKey,
         child: Column(
           children: [
             Align(
@@ -80,8 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const LoginScreen()));
+                                      builder: (context) => LoginScreen()));
                             },
                             child: const Text(
                               "Login",
@@ -106,143 +108,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(children: [
                           Expanded(
                             flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('First Name',
-                                    style: TextStyle(
-                                        color: AppColors.textFieldLabel)),
-                                const SizedBox(height: 3),
-                                TextFormField(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.all(10),
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  validator: (input) {
-                                    if (input!.isEmpty) {
-                                      return "Email Field is Required";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (val) {
-                                    // _authData['email'] = val!;
-                                  },
-                                ),
-                              ],
-                            ),
+                            child: textFormField(
+                                labelName: 'First Name',
+                                controller: _fNameController,
+                                keyboardType: TextInputType.name,
+                                validator: (input) {
+                                  if (input!.isEmpty) {
+                                    return "Required field";
+                                  }
+                                  return null;
+                                }),
                           ),
                           const SizedBox(width: 15),
                           Expanded(
                             flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Last Name',
-                                    style: TextStyle(
-                                        color: AppColors.textFieldLabel)),
-                                const SizedBox(height: 3),
-                                TextFormField(
-                                  controller: emailController,
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.all(10),
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  validator: (input) {
-                                    if (input!.isEmpty) {
-                                      return "Email Field is Required";
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (val) {
-                                    // _authData['email'] = val!;
-                                  },
-                                ),
-                              ],
-                            ),
+                            child: textFormField(
+                                labelName: 'Last Name',
+                                controller: _lNameController,
+                                keyboardType: TextInputType.name,
+                                validator: (input) {
+                                  if (input!.isEmpty) {
+                                    return "Required field";
+                                  }
+                                  return null;
+                                }),
                           )
                         ]),
                         SizedBox(height: Screen.screenHeight / (926 / 10)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:
-                                    TextStyle(color: AppColors.textFieldLabel)),
-                            const SizedBox(height: 2),
-                            TextFormField(
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (input) {
-                                if (input!.isEmpty || !input.contains('@')) {
-                                  return "Email Field is Required";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                // _authData['email'] = val!;
-                              },
-                            ),
-                          ],
-                        ),
+                        textFormField(
+                            labelName: 'Email',
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (input) {
+                              if (input!.isEmpty || !input.contains('@')) {
+                                return "This field must be an email";
+                              }
+                              return null;
+                            }),
                         SizedBox(height: Screen.screenHeight / (926 / 10)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Password',
-                                style:
-                                    TextStyle(color: AppColors.textFieldLabel)),
-                            const SizedBox(height: 2),
-                            TextFormField(
-                              controller: passwordController,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (input) {
-                                if (input!.isEmpty || input.length < 5) {
-                                  return "Password length must be greater than 5 characters";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                // _authData['password'] = val!;
-                              },
-                            ),
-                          ],
-                        ),
+                        textFormField(
+                            labelName: 'Password',
+                            controller: _passwordController,
+                            validator: (input) {
+                              if (input!.isEmpty || input.length < 5) {
+                                return "Password is weak";
+                              }
+                              return null;
+                            }),
                         SizedBox(height: Screen.screenHeight / (926 / 10)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Confirm password',
-                                style:
-                                    TextStyle(color: AppColors.textFieldLabel)),
-                            const SizedBox(height: 2),
-                            TextFormField(
-                              controller: passwordController,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (input) {
-                                if (input!.isEmpty || input.length < 5) {
-                                  return "Password length must be greater than 5 characters";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                // _authData['password'] = val!;
-                              },
-                            ),
-                          ],
-                        ),
+                        textFormField(
+                            labelName: 'Confirm Password',
+                            controller: _confirmPasswordController,
+                            validator: (input) {
+                              if (input != _passwordController.text) {
+                                return "Password not matched";
+                              }
+                              return null;
+                            }),
                       ],
                     )),
                     Column(
@@ -255,7 +177,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     AppColors.primary)),
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                await Provider.of<Authentication>(context,
+                                        listen: false)
+                                    .signUp(
+                                        fName: _fNameController.text,
+                                        lName: _lNameController.text,
+                                        email: _emailController.text,
+                                        password: _passwordController.text)
+                                    .then((value) => Navigator.of(context)
+                                        .pushReplacement(MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const AppLayoutScreen())))
+                                        .onError((error, stackTrace) =>
+                                            print("Erooooooor $error")));
+                              } else {
+                                return;
+                              }
+                            },
                           ),
                         ),
                         Padding(
