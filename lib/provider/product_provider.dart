@@ -21,7 +21,7 @@ class Product extends ChangeNotifier {
       // print(res.data);
       notifyListeners();
     } on DioError catch (e) {
-      e.message;
+      throw (e.response?.data['message']);
 
       // if (e.response != null) {
       //   print('Dio error!');

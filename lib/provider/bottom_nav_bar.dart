@@ -12,7 +12,7 @@ class BottomNavBar with ChangeNotifier {
   final List<Widget> _pages = [
     const DiscussionForumsScreen(),
     const CartScreen(),
-    HomeScreen(),
+    const HomeScreen(),
     const NotificationScreen(),
     const QuestionScreen()
   ];

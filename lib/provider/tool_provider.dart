@@ -21,7 +21,7 @@ class Tool with ChangeNotifier {
       _allTools = res.data!;
       notifyListeners();
     } on DioError catch (e) {
-      e.message;
+      throw (e.response?.data['message']);
 
       // if (e.response != null) {
       //   print('Dio error!');

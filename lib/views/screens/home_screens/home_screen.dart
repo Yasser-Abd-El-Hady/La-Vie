@@ -12,11 +12,9 @@ import 'package:provider/provider.dart';
 enum Category { all, plants, seeds, tools }
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Screen(context);
-
     return SafeArea(
       child: Column(children: [
         Padding(

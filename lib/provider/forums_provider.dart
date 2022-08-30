@@ -23,7 +23,7 @@ class Forums with ChangeNotifier {
       _allForums = res.data!;
       notifyListeners();
     } on DioError catch (e) {
-      e.message;
+      throw (e.response?.data['message']);
       // if (e.response != null) {
       //   print('Dio error!');
       //   print('STATUS: ${e.response?.statusCode}');

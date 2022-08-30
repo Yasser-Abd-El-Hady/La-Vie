@@ -22,8 +22,10 @@ class _CartScreenState extends State<CartScreen> {
           padding: EdgeInsets.only(
               top: Screen.screenHeight / (926 / 44),
               right: Screen.screenWidth / (428 / 24),
-              left: Screen.screenWidth / (428 / 24)),
+              left: Screen.screenWidth / (428 / 24),
+              bottom: Screen.screenHeight / (926 / 25)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(children: [
                 Expanded(
@@ -172,6 +174,56 @@ class _CartScreenState extends State<CartScreen> {
                       );
                     }),
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: Screen.screenHeight / (926 / 15),
+                    right: Screen.screenWidth / (428 / 10),
+                    left: Screen.screenWidth / (428 / 20),
+                    bottom: Screen.screenHeight / (926 / 20)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    customText(
+                        text: "Total",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600),
+                    RichText(
+                        text: const TextSpan(
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            children: [
+                          TextSpan(
+                              text: "180.00",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.primary)),
+                          TextSpan(text: " EGP"),
+                        ])),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Screen.screenWidth / (428 / 10)),
+                child: SizedBox(
+                  height: 45,
+                  child: ElevatedButton(
+                    child: const Text("Post"),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primary),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(12.0)))),
+                    onPressed: () {},
+                  ),
+                ),
+              )
             ],
           ),
         ),

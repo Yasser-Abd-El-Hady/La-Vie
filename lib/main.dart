@@ -10,26 +10,21 @@ import 'package:la_vie/provider/seed_provider.dart';
 import 'package:la_vie/provider/tool_provider.dart';
 import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/constants.dart';
-import 'package:la_vie/views/screens/authentication_screens/signup_screen.dart';
-import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
+import 'package:la_vie/views/screens/cart_screens/cart_screen.dart';
+import 'package:la_vie/views/screens/main_screens/splash_screen.dart';
+import 'package:la_vie/views/screens/user_screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   token = CacheHelper.getData(key: "token");
-  Widget widget;
-  if (token != null) {
-    widget = const AppLayoutScreen();
-  } else {
-    widget = SignUpScreen();
-  }
-  runApp(MyApp(widget));
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final Widget widget;
-  const MyApp(this.widget, {Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +41,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ForumsType>(create: (_) => ForumsType()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: '',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
-        home: widget,
-      ),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+          ),
+          home: const ProfileScreen()),
     );
   }
 }

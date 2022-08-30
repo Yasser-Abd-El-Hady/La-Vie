@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:la_vie/provider/authentication_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/my_icons_icons.dart';
+import 'package:la_vie/views/components/text_form_field.dart';
+import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 import '../../../utils/screen.dart';
 import 'signup_screen.dart';
@@ -9,13 +14,15 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    Screen(context);
+    ToastContext().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Form(
+        key: _formKey,
         child: Column(
           children: [
             Align(
@@ -96,58 +103,28 @@ class LoginScreen extends StatelessWidget {
                     Expanded(
                         child: ListView(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:
-                                    TextStyle(color: AppColors.textFieldLabel)),
-                            const SizedBox(height: 3),
-                            TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (input) {
-                                if (input!.isEmpty || !input.contains('@')) {
-                                  return "Email Field is Required";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                // _authData['email'] = val!;
-                              },
-                            ),
-                          ],
-                        ),
+                        textFormField(
+                            labelName: 'Email',
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (input) {
+                              if (input!.isEmpty || !input.contains('@')) {
+                                return "This field must be an email";
+                              }
+                              return null;
+                            }),
                         SizedBox(height: Screen.screenHeight / (926 / 10)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Password',
-                                style:
-                                    TextStyle(color: AppColors.textFieldLabel)),
-                            const SizedBox(height: 3),
-                            TextFormField(
-                              controller: _passwordController,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(10),
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (input) {
-                                if (input!.isEmpty || input.length < 5) {
-                                  return "Password length must be greater than 5 characters";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                // _authData['password'] = val!;
-                              },
-                            ),
-                          ],
-                        ),
+                        textFormField(
+                          labelName: "Password",
+                          controller: _passwordController,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (input) {
+                            if (input!.isEmpty || input.length < 5) {
+                              return "Password length must be greater than 5 characters";
+                            }
+                            return null;
+                          },
+                        )
                       ],
                     )),
                     Column(
@@ -160,7 +137,25 @@ class LoginScreen extends StatelessWidget {
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     AppColors.primary)),
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                await Provider.of<Authentication>(context,
+                                        listen: false)
+                                    .login(
+                                        email: _emailController.text,
+                                        password: _passwordController.text)
+                                    .then((value) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AppLayoutScreen()));
+                                }, onError: (e) {
+                                  Toast.show(e.toString(), duration: 3);
+                                });
+                              } else {
+                                return;
+                              }
+                            },
                           ),
                         ),
                         Padding(

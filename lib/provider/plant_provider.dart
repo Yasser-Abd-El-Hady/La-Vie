@@ -19,7 +19,7 @@ class Plant with ChangeNotifier {
       _allPlants = res.data!;
       notifyListeners();
     } on DioError catch (e) {
-      e.message;
+      throw (e.response?.data['message']);
       // if (e.response != null) {
       //   print('Dio error!');
       //   print('STATUS: ${e.response?.statusCode}');
