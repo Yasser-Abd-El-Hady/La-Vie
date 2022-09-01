@@ -1,9 +1,8 @@
-import 'package:la_vie/models/my_forums_model/forum_comment.dart';
-import 'package:la_vie/models/my_forums_model/forum_like.dart';
-
+import 'forum_comment.dart';
+import 'forum_like.dart';
 import 'user.dart';
 
-class AllForums {
+class MyForums {
   String? forumId;
   String? title;
   String? description;
@@ -13,7 +12,7 @@ class AllForums {
   List<ForumComments>? forumComments;
   User? user;
 
-  AllForums({
+  MyForums({
     this.forumId,
     this.title,
     this.description,
@@ -24,7 +23,7 @@ class AllForums {
     this.user,
   });
 
-  factory AllForums.fromJson(Map<String, dynamic> json) => AllForums(
+  factory MyForums.fromJson(Map<String, dynamic> json) => MyForums(
         forumId: json['forumId'] as String?,
         title: json['title'] as String?,
         description: json['description'] as String?,

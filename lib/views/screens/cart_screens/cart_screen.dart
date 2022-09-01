@@ -31,7 +31,11 @@ class _CartScreenState extends State<CartScreen> {
                 Expanded(
                   child: Stack(
                     children: [
-                      const Icon(Icons.arrow_back),
+                      InkWell(
+                          child: const Icon(Icons.arrow_back),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          }),
                       Align(
                         alignment: Alignment.topCenter,
                         child: customText(

@@ -2,25 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:la_vie/models/all_forums_model/all_forums.dart';
+import 'package:la_vie/models/my_forums_model/my_forums.dart';
 import 'package:la_vie/services/dio_client.dart';
 import 'package:la_vie/utils/constants.dart';
 
-import '../models/all_forums_model/all_forums_model.dart';
+import '../models/my_forums_model/my_forums_model.dart';
 
-class Forums with ChangeNotifier {
-  List<AllForums> _allForums = [];
+class MyForumsProvider with ChangeNotifier {
+  List<MyForums> _myForums = [];
 
-  List<AllForums> get allForums => _allForums;
+  List<MyForums> get myForums => _myForums;
 
-  Future<List<AllForums?>> getAllForums() async {
-    _allForums.clear();
+  Future<List<MyForums?>> getMyForums() async {
+    _myForums.clear();
     try {
       var response = await DioClient.dio.get(
           "${DioClient.url}/api/v1/forums/me",
           options: Options(headers: ({'Authorization': 'Bearer $token'})));
-      AllForumsModel res = AllForumsModel.fromJson(response.data);
-      _allForums = res.data!;
+      MyForumsModel res = MyForumsModel.fromJson(response.data);
+      _myForums = res.data!;
       notifyListeners();
     } on DioError catch (e) {
       throw (e.response?.data['message']);
@@ -34,11 +34,11 @@ class Forums with ChangeNotifier {
       //   print(e.message);
       // }
     }
-    return _allForums;
+    return _myForums;
   }
 
-  Future<AllForums?> createPost({required AllForums post}) async {
-    AllForums? retrievedPost;
+  Future<MyForums?> createPost({required MyForums post}) async {
+    MyForums? retrievedPost;
 
     try {
       Response response =
@@ -52,7 +52,7 @@ class Forums with ChangeNotifier {
 
       // print('Post created: ${response.data}');
 
-      retrievedPost = AllForums.fromJson(response.data);
+      retrievedPost = MyForums.fromJson(response.data);
     } on DioError catch (e) {
       e.message;
       // if (e.response != null) {

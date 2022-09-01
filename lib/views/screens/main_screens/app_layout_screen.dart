@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:la_vie/provider/all_forums_provider.dart';
 import 'package:la_vie/provider/bottom_nav_bar.dart';
-import 'package:la_vie/provider/forums_provider.dart';
+import 'package:la_vie/provider/my_forums_provider.dart';
 import 'package:la_vie/provider/product_provider.dart';
 import 'package:la_vie/provider/seed_provider.dart';
 import 'package:la_vie/provider/tool_provider.dart';
+import 'package:la_vie/provider/user_profile_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:provider/provider.dart';
@@ -20,29 +22,34 @@ class AppLayoutScreen extends StatelessWidget {
     Provider.of<Tool>(context, listen: false).getAllTools();
     Provider.of<Plant>(context, listen: false).getAllPlants();
     Provider.of<Product>(context, listen: false).getAllProducts();
-    Provider.of<Forums>(context, listen: false).getAllForums();
+    Provider.of<MyForumsProvider>(context, listen: false).getMyForums();
+    Provider.of<AllForumsProvider>(context, listen: false).getAllForums();
+    Provider.of<UserProvider>(context, listen: false).getUserData();
     return Scaffold(
       bottomNavigationBar: Material(
         elevation: 10,
         child: CurvedNavigationBar(
-          index: 2,
+          index: 3,
           height: 60.0,
           items: <Widget>[
             Icon(Icons.eco_outlined,
                 size: 30,
                 color: provider.selectedPage == 0 ? Colors.white : null),
-            Icon(Icons.qr_code_scanner,
+            Icon(Icons.summarize_outlined,
                 size: 30,
                 color: provider.selectedPage == 1 ? Colors.white : null),
-            Icon(Icons.home_outlined,
+            Icon(Icons.qr_code_scanner,
                 size: 30,
                 color: provider.selectedPage == 2 ? Colors.white : null),
-            Icon(Icons.notifications_none,
+            Icon(Icons.home_outlined,
                 size: 30,
                 color: provider.selectedPage == 3 ? Colors.white : null),
-            Icon(Icons.perm_identity,
+            Icon(Icons.notifications_none,
                 size: 30,
                 color: provider.selectedPage == 4 ? Colors.white : null),
+            Icon(Icons.perm_identity,
+                size: 30,
+                color: provider.selectedPage == 5 ? Colors.white : null),
           ],
           color: AppColors.secondary,
           buttonBackgroundColor: const Color(0xff1ABC00),

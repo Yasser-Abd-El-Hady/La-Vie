@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:la_vie/models/all_forums_model/all_forums.dart';
-import 'package:la_vie/provider/forums_provider.dart';
+import 'package:la_vie/models/my_forums_model/my_forums.dart';
+import 'package:la_vie/provider/my_forums_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +104,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         final bytes = await File(image.path).readAsBytes();
                         img64 = base64Encode(bytes);
                       } on PlatformException catch (e) {
-                        print("Faild to pick image $e");
+                        "Faild to pick image $e";
                       }
                     },
                   ),
@@ -173,11 +173,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           if (image == null) {
                             Toast.show("Select image first");
                           } else {
-                            AllForums post = AllForums();
+                            MyForums post = MyForums();
                             post.title = _titleController.text;
                             post.description = _descriptionController.text;
                             post.imageUrl = img64;
-                            Provider.of<Forums>(context, listen: false)
+                            Provider.of<MyForumsProvider>(context,
+                                    listen: false)
                                 .createPost(post: post)
                                 .then((value) => Navigator.of(context).pop());
                           }

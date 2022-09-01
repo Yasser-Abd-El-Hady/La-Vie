@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:la_vie/views/screens/blogs_screens/blogs_screen.dart';
 import 'package:la_vie/views/screens/forums_screens/discussion_forums_screen.dart';
 import 'package:la_vie/views/screens/home_screens/home_screen.dart';
+import 'package:la_vie/views/screens/user_screens/profile_screen.dart';
 
 import '../views/screens/cart_screens/cart_screen.dart';
 import '../views/screens/notification_screens/notification_screen.dart';
-import '../views/screens/questions_screens/question_screen.dart';
 
 class BottomNavBar with ChangeNotifier {
-  int _selectedPage = 2;
+  int _selectedPage = 3;
 
   final List<Widget> _pages = [
     const DiscussionForumsScreen(),
+    const BlogsScreen(),
     const CartScreen(),
     const HomeScreen(),
     const NotificationScreen(),
-    const QuestionScreen()
+    ProfileScreen()
   ];
 
   int get selectedPage => _selectedPage;

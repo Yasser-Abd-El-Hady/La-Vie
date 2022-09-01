@@ -3,6 +3,7 @@ import 'package:la_vie/provider/categories.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/categories.dart';
+import 'package:la_vie/views/screens/cart_screens/cart_screen.dart';
 import 'package:la_vie/views/screens/home_screens/plants_screen.dart';
 import 'package:la_vie/views/screens/home_screens/products_screen.dart';
 import 'package:la_vie/views/screens/home_screens/seeds_screen.dart';
@@ -79,7 +80,10 @@ class HomeScreen extends StatelessWidget {
                       color: AppColors.primary,
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const CartScreen()));
+                      },
                       icon: const Icon(Icons.shopping_cart_checkout),
                       color: Colors.white,
                     ),

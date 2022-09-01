@@ -6,7 +6,6 @@ import 'package:la_vie/models/user_model/user.dart';
 import 'package:la_vie/models/user_model/user_model.dart';
 import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/services/dio_client.dart';
-import 'package:la_vie/services/dio_exception.dart';
 import 'package:la_vie/utils/constants.dart';
 
 class Authentication with ChangeNotifier {

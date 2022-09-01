@@ -1,18 +1,20 @@
-import 'all_forums.dart';
+import 'package:la_vie/models/my_forums_model/my_forums.dart';
 
-class AllForumsModel {
+import 'my_forums.dart';
+
+class MyForumsModel {
   String? type;
   String? message;
-  List<AllForums>? data;
+  List<MyForums>? data;
 
-  AllForumsModel({this.type, this.message, this.data});
+  MyForumsModel({this.type, this.message, this.data});
 
-  factory AllForumsModel.fromJson(Map<String, dynamic> json) {
-    return AllForumsModel(
+  factory MyForumsModel.fromJson(Map<String, dynamic> json) {
+    return MyForumsModel(
       type: json['type'] as String?,
       message: json['message'] as String?,
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => AllForums.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => MyForums.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
   }

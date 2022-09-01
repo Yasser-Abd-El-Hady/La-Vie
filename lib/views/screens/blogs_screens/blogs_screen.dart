@@ -25,23 +25,11 @@ class _BlogsScreenState extends State<BlogsScreen> {
               left: Screen.screenWidth / (428 / 24)),
           child: Column(
             children: [
-              Row(children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      const Icon(Icons.arrow_back),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: customText(
-                          text: "Blogs",
-                          fontWeight: FontWeight.w700,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ]),
+              customText(
+                text: "Blogs",
+                fontWeight: FontWeight.w700,
+                fontSize: 25,
+              ),
               SizedBox(height: Screen.screenHeight / (926 / 10)),
               Expanded(
                 child: ListView.builder(
