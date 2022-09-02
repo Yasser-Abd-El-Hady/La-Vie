@@ -1,8 +1,10 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:la_vie/provider/question_provider.dart';
 import 'package:la_vie/provider/user_profile_provider.dart';
 import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
+import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/custom_text.dart';
 import 'package:la_vie/views/screens/authentication_screens/login_screen.dart';
@@ -48,7 +50,8 @@ class ProfileScreen extends StatelessWidget {
                                   CacheHelper.removeKey(key: "token");
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
+                                          builder: (context) =>
+                                              const LoginScreen()));
                                 }),
                           ],
                         ),
@@ -100,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                                   SizedBox(
                                       width: Screen.screenWidth / (428 / 15)),
                                   customText(
-                                      text: "You have 30 points",
+                                      text: "You have $points points",
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17),
                                 ],

@@ -10,14 +10,22 @@ import 'package:toast/toast.dart';
 import '../../../utils/my_icons_icons.dart';
 import 'login_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _lNameController = TextEditingController();
   final _fNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -84,7 +92,8 @@ class SignUpScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
+                                      builder: (context) =>
+                                          const LoginScreen()));
                             },
                             child: const Text(
                               "Login",
@@ -171,36 +180,46 @@ class SignUpScreen extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            child: const Text("Sign up"),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    AppColors.primary)),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                await Provider.of<Authentication>(context,
-                                        listen: false)
-                                    .signUp(
-                                        fName: _fNameController.text,
-                                        lName: _lNameController.text,
-                                        email: _emailController.text,
-                                        password: _passwordController.text)
-                                    .then((value) {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AppLayoutScreen()));
-                                }, onError: (e) {
-                                  Toast.show(e.toString(), duration: 3);
-                                });
-                              } else {
-                                return;
-                              }
-                            },
-                          ),
-                        ),
+                        _isLoading
+                            ? SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  child: const Text("Sign up"),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              AppColors.primary)),
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        _isLoading = true;
+                                      });
+                                      await Provider.of<Authentication>(context,
+                                              listen: false)
+                                          .signUp(
+                                              fName: _fNameController.text,
+                                              lName: _lNameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text)
+                                          .then((value) {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AppLayoutScreen()));
+                                      }, onError: (e) {
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                        Toast.show(e.toString(), duration: 3);
+                                      });
+                                    } else {
+                                      return;
+                                    }
+                                  },
+                                ),
+                              )
+                            : const CircularProgressIndicator(),
                         Padding(
                           padding: EdgeInsets.only(
                               top: Screen.screenHeight / (926 / 15)),

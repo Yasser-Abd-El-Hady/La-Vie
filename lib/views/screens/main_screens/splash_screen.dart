@@ -3,6 +3,7 @@ import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/screens/authentication_screens/signup_screen.dart';
 import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
+import 'package:toast/toast.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,9 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null) {
       widget = const AppLayoutScreen();
     } else {
-      widget = SignUpScreen();
+      widget = const SignUpScreen();
     }
-    Future.delayed(const Duration(seconds: 5), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => widget));
     });
@@ -30,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Screen(context);
+
     return Scaffold(
       body: Column(
         children: <Widget>[

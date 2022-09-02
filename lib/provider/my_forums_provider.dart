@@ -54,7 +54,7 @@ class MyForumsProvider with ChangeNotifier {
 
       retrievedPost = MyForums.fromJson(response.data);
     } on DioError catch (e) {
-      e.message;
+      throw e.response!.data;
       // if (e.response != null) {
       //   print('Dio error!');
       //   print('STATUS: ${e.response?.statusCode}');

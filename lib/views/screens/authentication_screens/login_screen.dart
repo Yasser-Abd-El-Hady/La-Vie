@@ -10,11 +10,21 @@ import 'package:toast/toast.dart';
 import '../../../utils/screen.dart';
 import 'signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  late bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +76,8 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SignUpScreen()));
+                                      builder: (context) =>
+                                          const SignUpScreen()));
                             },
                             child: const Text(
                               "Sign up",
@@ -130,34 +141,43 @@ class LoginScreen extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            child: const Text("Login"),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    AppColors.primary)),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                await Provider.of<Authentication>(context,
-                                        listen: false)
-                                    .login(
-                                        email: _emailController.text,
-                                        password: _passwordController.text)
-                                    .then((value) {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AppLayoutScreen()));
-                                }, onError: (e) {
-                                  Toast.show(e.toString(), duration: 3);
-                                });
-                              } else {
-                                return;
-                              }
-                            },
-                          ),
-                        ),
+                        _isLoading
+                            ? SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  child: const Text("Login"),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              AppColors.primary)),
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                      await Provider.of<Authentication>(context,
+                                              listen: false)
+                                          .login(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text)
+                                          .then((value) {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AppLayoutScreen()));
+                                      }, onError: (e) {
+                                        setState(() {
+                                          _isLoading = true;
+                                        });
+                                        Toast.show(e.toString(), duration: 3);
+                                      });
+                                    } else {
+                                      return;
+                                    }
+                                  },
+                                ))
+                            : const CircularProgressIndicator(),
                         Padding(
                           padding: EdgeInsets.only(
                               top: Screen.screenHeight / (926 / 35)),

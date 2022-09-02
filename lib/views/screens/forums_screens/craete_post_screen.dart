@@ -99,10 +99,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         setState(() {
                           this.image = imageTemporary;
                         });
-                        // print("jkjlklkjl ${image.name}");
 
                         final bytes = await File(image.path).readAsBytes();
                         img64 = base64Encode(bytes);
+                        final imgExtention = image.name
+                            .substring(image.name.lastIndexOf('.') + 1);
+                        img64 = "data:image/$imgExtention;base64,$img64";
                       } on PlatformException catch (e) {
                         "Faild to pick image $e";
                       }
@@ -180,7 +182,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                             Provider.of<MyForumsProvider>(context,
                                     listen: false)
                                 .createPost(post: post)
-                                .then((value) => Navigator.of(context).pop());
+                                .then((value) {
+                              Navigator.of(context).pop();
+                              Toast.show("Post created succefully");
+                            }, onError: (e) {
+                              Toast.show(e);
+                            });
                           }
                         }
                       },

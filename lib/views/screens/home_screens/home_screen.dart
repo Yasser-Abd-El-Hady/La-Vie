@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/categories.dart';
+import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/categories.dart';
@@ -8,6 +9,7 @@ import 'package:la_vie/views/screens/home_screens/plants_screen.dart';
 import 'package:la_vie/views/screens/home_screens/products_screen.dart';
 import 'package:la_vie/views/screens/home_screens/seeds_screen.dart';
 import 'package:la_vie/views/screens/home_screens/tools_screen.dart';
+import 'package:la_vie/views/screens/questions_screens/question_screen.dart';
 import 'package:provider/provider.dart';
 
 enum Category { all, plants, seeds, tools }
@@ -40,7 +42,28 @@ class HomeScreen extends StatelessWidget {
                 height: 15.04,
               ),
               heightFactor: 2.5,
-            )
+            ),
+            CacheHelper.getData(key: "userPoints") == null
+                ? Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5, right: 5),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            primary: AppColors.secondary),
+                        child: const Icon(
+                          Icons.question_mark,
+                          color: AppColors.primary,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const QuestionScreen()));
+                        },
+                      ),
+                    ),
+                  )
+                : Container()
           ],
         ),
         Padding(
