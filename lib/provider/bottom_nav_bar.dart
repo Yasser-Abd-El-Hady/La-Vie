@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:la_vie/views/screens/blogs_screens/blogs_screen.dart';
 import 'package:la_vie/views/screens/forums_screens/discussion_forums_screen.dart';
 import 'package:la_vie/views/screens/home_screens/home_screen.dart';
+import 'package:la_vie/views/screens/scan_screens.dart/qr_screen.dart';
+import 'package:la_vie/views/screens/scan_screens.dart/scan_details.dart';
 import 'package:la_vie/views/screens/user_screens/profile_screen.dart';
 
-import '../views/screens/cart_screens/cart_screen.dart';
 import '../views/screens/notification_screens/notification_screen.dart';
 
 class BottomNavBar with ChangeNotifier {
@@ -13,7 +14,8 @@ class BottomNavBar with ChangeNotifier {
   final List<Widget> _pages = [
     const DiscussionForumsScreen(),
     const BlogsScreen(),
-    const CartScreen(),
+    // const QRScreen(),
+    ScanDetailsScreen(),
     const HomeScreen(),
     const NotificationScreen(),
     ProfileScreen()

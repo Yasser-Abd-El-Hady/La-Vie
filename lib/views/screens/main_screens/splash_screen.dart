@@ -3,7 +3,6 @@ import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/screens/authentication_screens/signup_screen.dart';
 import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
-import 'package:toast/toast.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

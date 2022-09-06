@@ -29,7 +29,7 @@ class AppLayoutScreen extends StatelessWidget {
       bottomNavigationBar: Material(
         elevation: 10,
         child: CurvedNavigationBar(
-          index: provider.selectedPage,
+          index: Provider.of<BottomNavBar>(context).selectedPage,
           height: 60.0,
           items: <Widget>[
             Icon(Icons.eco_outlined,
