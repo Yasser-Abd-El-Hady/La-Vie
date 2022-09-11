@@ -138,7 +138,8 @@ class _QuestionScreen extends State<QuestionScreen> {
                                     if (result.contains("point")) {
                                       Provider.of<BottomNavBar>(context,
                                               listen: false)
-                                          .changeSelected(5);
+                                          .changeSelected(4);
+                                      Navigator.of(context).pop();
                                     }
                                   }
                                 },

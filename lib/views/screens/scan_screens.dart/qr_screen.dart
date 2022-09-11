@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/views/screens/scan_screens.dart/scan_details.dart';
@@ -146,7 +144,6 @@ class _QRScreenState extends State<QRScreen> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
-    print("AAAAAAAAAAAAAAAAAAAAAAAA");
     controller.scannedDataStream.listen((scanData) {
       result = scanData;
 
@@ -156,7 +153,6 @@ class _QRScreenState extends State<QRScreen> {
             builder: (context) => ScanDetailsScreen(code: result!.code)));
       }
     });
-    print("BBBBBBBBBBBBBBBBBBBBBBBB");
   }
 
   // void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

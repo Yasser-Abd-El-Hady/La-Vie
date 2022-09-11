@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:la_vie/provider/all_forums_provider.dart';
 import 'package:la_vie/provider/authentication_provider.dart';
 import 'package:la_vie/provider/bottom_nav_bar.dart';
+import 'package:la_vie/provider/cart_provider.dart';
 import 'package:la_vie/provider/categories.dart';
 import 'package:la_vie/provider/forums.dart';
 import 'package:la_vie/provider/my_forums_provider.dart';
@@ -20,10 +21,10 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  CacheHelper.setData(
-      key: "token",
-      value:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YjFlNjdlYy1mZmE0LTRjYzItYjJjZi1kZDBjNDliM2E5ZjgiLCJpYXQiOjE2NjIyNDYxNDQsImV4cCI6MTY2MjQxODk0NH0.R95kWanYgYadUnfCxxM3bE9uZE4U-2f_Z_rmZP9_NGo");
+  // CacheHelper.setData(
+  //     key: "token",
+  //     value:
+  //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YjFlNjdlYy1mZmE0LTRjYzItYjJjZi1kZDBjNDliM2E5ZjgiLCJpYXQiOjE2NjI3NzA5ODYsImV4cCI6MTY2Mjk0Mzc4Nn0.nL2mgCfJRGDUHhc1lXNA-A5p2KUFRdS7Yl4VIYnfWHA");
   token = CacheHelper.getData(key: "token");
 
   if (CacheHelper.getData(key: "userPoints") != null) {
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ForumsType>(create: (_) => ForumsType()),
         ChangeNotifierProvider<Question>(create: (_) => Question()),
         ChangeNotifierProvider<QR>(create: (_) => QR()),
+        ChangeNotifierProvider<Cart>(create: (_) => Cart()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

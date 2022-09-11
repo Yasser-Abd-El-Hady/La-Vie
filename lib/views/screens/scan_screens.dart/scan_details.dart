@@ -1,19 +1,13 @@
-import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:la_vie/provider/bottom_nav_bar.dart';
-import 'package:la_vie/provider/user_profile_provider.dart';
-import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
-import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/custom_text.dart';
-import 'package:la_vie/views/screens/authentication_screens/login_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
+import 'package:la_vie/views/components/plant_detail_item.dart';
+import 'package:la_vie/views/screens/blogs_screens/blogs_screen.dart';
 
 class ScanDetailsScreen extends StatelessWidget {
-  ScanDetailsScreen({Key? key, this.code}) : super(key: key);
-  String? code;
+  const ScanDetailsScreen({Key? key, this.code}) : super(key: key);
+  final String? code;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +20,34 @@ class ScanDetailsScreen extends StatelessWidget {
               height: Screen.screenHeight / (926 / 391),
               child: Stack(children: [
                 Image.asset(
-                  "assets/images/img.jpg",
+                  "assets/images/plant2.png",
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.fill,
-                ).blurred(blur: 7),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: Screen.screenHeight / (926 / 30),
+                      bottom: Screen.screenHeight / (926 / 100),
+                      left: Screen.screenWidth / (428 / 40)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      plantDetialItem(
+                          icon: Icons.sunny,
+                          value: "78%",
+                          description: "Sun light"),
+                      plantDetialItem(
+                          icon: Icons.water_drop_outlined,
+                          value: "10%",
+                          description: "Water Capacity"),
+                      plantDetialItem(
+                          icon: Icons.thermostat,
+                          value: "29°c",
+                          description: "Temperature"),
+                    ],
+                  ),
+                )
               ]),
             ),
             Padding(
@@ -48,110 +65,85 @@ class ScanDetailsScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: Screen.screenHeight / (926 / 25)),
-                        child: Container(
-                          width: Screen.screenWidth / (428 / 378),
-                          height: Screen.screenHeight / (926 / 90),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color(0xffF3FEF1)),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Screen.screenWidth / (428 / 15)),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/points.png"),
-                                SizedBox(
-                                    width: Screen.screenWidth / (428 / 15)),
-                                customText(
-                                    text: "You have $points points",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.all(Screen.screenWidth / (428 / 30)),
+                            left: Screen.screenWidth / (428 / 30),
+                            top: Screen.screenHeight / (926 / 25),
+                            bottom: Screen.screenHeight / (926 / 10)),
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: customText(
-                                text: "Edit Profile",
+                                text: "SNAKE PLANT (SANSEVIERIA)",
                                 fontWeight: FontWeight.w500,
-                                fontSize: 24)),
+                                fontSize: 20)),
                       ),
-                      Container(
-                        width: Screen.screenWidth / (428 / 378),
-                        height: Screen.screenHeight / (926 / 100),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: AppColors.customGrey)),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Screen.screenWidth / (428 / 15)),
-                          child: Row(
-                            children: [
-                              Image.asset("assets/images/change.png"),
-                              SizedBox(width: Screen.screenWidth / (428 / 15)),
-                              customText(
-                                  text: "Change Name",
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    child: const Icon(
-                                      Icons.arrow_forward,
-                                      color: Color(0xff1D592C),
-                                      size: 35,
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Screen.screenWidth / (428 / 35)),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: customText(
+                                text:
+                                    "Native to southern Africa, snake plants are well adapted to conditions similar to those in southern regions of the United States. Because of this, they may be grown outdoors for part of all of the year in USDA zones 8 and warmer",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                height: 1.4,
+                                color: AppColors.customGrey)),
                       ),
-                      SizedBox(height: Screen.screenHeight / (926 / 30)),
-                      Container(
-                        width: Screen.screenWidth / (428 / 378),
-                        height: Screen.screenHeight / (926 / 100),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: AppColors.customGrey)),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Screen.screenWidth / (428 / 15)),
-                          child: Row(
-                            children: [
-                              Image.asset("assets/images/change.png"),
-                              SizedBox(width: Screen.screenWidth / (428 / 15)),
-                              customText(
-                                  text: "Change Email",
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    child: const Icon(
-                                      Icons.arrow_forward,
-                                      color: Color(0xff1D592C),
-                                      size: 35,
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: Screen.screenWidth / (428 / 30),
+                            top: Screen.screenHeight / (926 / 20),
+                            bottom: Screen.screenHeight / (926 / 10)),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: customText(
+                                text: "Common Snake Plant Diseases",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Screen.screenWidth / (428 / 35)),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: customText(
+                                text:
+                                    "A widespread problem with snake plants is root rot. This results from over-watering the soil of the plant and is most common in the colder months of the year. When room rot occurs, the plant roots can die due to a lack of oxygen and an overgrowth of fungus within the soil.",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                height: 1.4,
+                                color: AppColors.customGrey)),
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: const Text("Go To Blog"),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primary),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(12.0)))),
+                    onPressed: () {
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (context) => const BlogsScreen(),
+                      // ));
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BlogsScreen(),
+                      ));
+                    },
                   ),
                 ),
               ),

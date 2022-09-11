@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/authentication_provider.dart';
+import 'package:la_vie/provider/bottom_nav_bar.dart';
 import 'package:la_vie/utils/color.dart';
-import 'package:la_vie/utils/my_icons_icons.dart';
 import 'package:la_vie/views/components/text_form_field.dart';
 import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
 import 'package:provider/provider.dart';
@@ -162,6 +162,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   _passwordController.text)
                                           .then((value) {
+                                        Provider.of<BottomNavBar>(context,
+                                                listen: false)
+                                            .changeSelected(2);
                                         Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>
@@ -208,20 +211,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  MyIcons.google,
-                                  color: Color(0xffF14336),
+                              InkWell(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: Image.asset(
+                                    "assets/icons/google.png",
+                                    height: 30.0,
+                                    width: 40.0,
+                                  ),
                                 ),
+                                onTap: () {},
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  MyIcons.facebook,
-                                  color: Color(0xff337FFF),
+                              InkWell(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: Image.asset(
+                                    "assets/icons/facebook.png",
+                                    height: 30.0,
+                                    width: 40.0,
+                                  ),
                                 ),
-                              )
+                                onTap: () {},
+                              ),
                             ],
                           ),
                         ),

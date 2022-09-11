@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+
+import 'package:la_vie/provider/cart_provider.dart';
+import 'package:la_vie/provider/categories.dart';
+import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
+import 'package:la_vie/utils/constants.dart';
 import 'package:la_vie/utils/screen.dart';
+import 'package:la_vie/views/screens/home_screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 import '../../components/custom_text.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  int i = 1;
-  @override
   Widget build(BuildContext context) {
-    Screen(context);
+    ToastContext().init(context);
+    var providerListener = Provider.of<Cart>(context).myCart;
+    var provider = Provider.of<Cart>(context, listen: false).myCart;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -52,7 +56,7 @@ class _CartScreenState extends State<CartScreen> {
               Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 8,
+                    itemCount: providerListener.length,
                     itemBuilder: (context, index) {
                       return Card(
                         margin: EdgeInsets.only(
@@ -73,8 +77,15 @@ class _CartScreenState extends State<CartScreen> {
                                         bottom:
                                             Screen.screenHeight / (926 / 14),
                                         left: Screen.screenWidth / (428 / 11)),
-                                    child:
-                                        Image.asset("assets/images/plant2.png"),
+                                    child: providerListener[index].imageUrl ==
+                                            ""
+                                        ? Image.asset("assets/images/55.png")
+                                        : Image.network(
+                                            url +
+                                                providerListener[index]
+                                                    .imageUrl!,
+                                            fit: BoxFit.cover,
+                                          ),
                                   )),
                               Expanded(
                                   flex: 8,
@@ -88,11 +99,12 @@ class _CartScreenState extends State<CartScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         customText(
-                                            text: "Cactus plant",
+                                            text: providerListener[index].name!,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600),
                                         customText(
-                                            text: "200 EGP",
+                                            text:
+                                                "${providerListener[index].price!} EGP",
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500,
                                             color: AppColors.primary),
@@ -118,9 +130,12 @@ class _CartScreenState extends State<CartScreen> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      setState(() {
-                                                        i--;
-                                                      });
+                                                      Provider.of<Cart>(context,
+                                                              listen: false)
+                                                          .updateCart(
+                                                              provider[index]
+                                                                  .productId!,
+                                                              "-");
                                                     },
                                                     child: Center(
                                                       child: customText(
@@ -136,16 +151,20 @@ class _CartScreenState extends State<CartScreen> {
                                                     width: Screen.screenWidth *
                                                         0.01,
                                                   ),
-                                                  Text("$i"),
+                                                  Text(
+                                                      "${providerListener[index].count}"),
                                                   SizedBox(
                                                     width: Screen.screenWidth *
                                                         0.01,
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      setState(() {
-                                                        i++;
-                                                      });
+                                                      Provider.of<Cart>(context,
+                                                              listen: false)
+                                                          .updateCart(
+                                                              provider[index]
+                                                                  .productId!,
+                                                              "+");
                                                     },
                                                     child: Center(
                                                       child: customText(
@@ -164,8 +183,19 @@ class _CartScreenState extends State<CartScreen> {
                                               padding: EdgeInsets.only(
                                                   right: Screen.screenWidth /
                                                       (428 / 8)),
-                                              child: const Icon(Icons.delete,
-                                                  color: AppColors.primary),
+                                              child: InkWell(
+                                                  child: const Icon(
+                                                      Icons.delete,
+                                                      color: AppColors.primary),
+                                                  onTap: () {
+                                                    Provider.of<Cart>(context,
+                                                            listen: false)
+                                                        .removeFromCart(
+                                                            provider[index]
+                                                                .productId!,
+                                                            CacheHelper.getData(
+                                                                key: "userId"));
+                                                  }),
                                             )
                                           ],
                                         )
@@ -192,19 +222,20 @@ class _CartScreenState extends State<CartScreen> {
                         fontSize: 20,
                         fontWeight: FontWeight.w600),
                     RichText(
-                        text: const TextSpan(
-                            style: TextStyle(
+                        text: TextSpan(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600),
                             children: [
                           TextSpan(
-                              text: "180.00",
-                              style: TextStyle(
+                              text:
+                                  "${Provider.of<Cart>(context).orderPrice()}",
+                              style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
                                   color: AppColors.primary)),
-                          TextSpan(text: " EGP"),
+                          const TextSpan(text: " EGP"),
                         ])),
                   ],
                 ),
@@ -215,7 +246,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: SizedBox(
                   height: 45,
                   child: ElevatedButton(
-                    child: const Text("Post"),
+                    child: const Text("Checkout"),
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(AppColors.primary),
@@ -224,7 +255,13 @@ class _CartScreenState extends State<CartScreen> {
                                 RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.circular(12.0)))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Categories>(context, listen: false)
+                          .changeSelectedCategory(Category.all);
+                      Provider.of<Cart>(context, listen: false).removeAll();
+                      Toast.show("Order will arrive in 2 days");
+                      Navigator.of(context).pop();
+                    },
                   ),
                 ),
               )

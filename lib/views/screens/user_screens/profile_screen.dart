@@ -1,6 +1,5 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:la_vie/provider/bottom_nav_bar.dart';
 import 'package:la_vie/provider/user_profile_provider.dart';
 import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
@@ -16,7 +15,6 @@ class ProfileScreen extends StatelessWidget {
   final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Screen(context);
     ToastContext().init(context);
     var provider = Provider.of<UserProvider>(context).userData!;
     return Scaffold(
@@ -47,10 +45,9 @@ class ProfileScreen extends StatelessWidget {
                                 child: const Icon(Icons.logout,
                                     size: 35, color: Colors.white),
                                 onTap: () {
+                                  CacheHelper.removeKey(key: "userId");
+
                                   CacheHelper.removeKey(key: "token");
-                                  Provider.of<BottomNavBar>(context,
-                                          listen: false)
-                                      .changeSelected(3);
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>

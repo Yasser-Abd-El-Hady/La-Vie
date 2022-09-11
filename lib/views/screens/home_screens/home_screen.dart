@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:la_vie/provider/cart_provider.dart';
 import 'package:la_vie/provider/categories.dart';
 import 'package:la_vie/services/cashe_helper.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/categories.dart';
 import 'package:la_vie/views/screens/cart_screens/cart_screen.dart';
+import 'package:la_vie/views/screens/cart_screens/empty_cart.dart';
 import 'package:la_vie/views/screens/home_screens/plants_screen.dart';
 import 'package:la_vie/views/screens/home_screens/products_screen.dart';
 import 'package:la_vie/views/screens/home_screens/seeds_screen.dart';
@@ -104,8 +106,11 @@ class HomeScreen extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const CartScreen()));
+                        Provider.of<Cart>(context, listen: false).myCart.isEmpty
+                            ? Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const EmptyCartScreen()))
+                            : Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CartScreen()));
                       },
                       icon: const Icon(Icons.shopping_cart_checkout),
                       color: Colors.white,

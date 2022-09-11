@@ -30,7 +30,9 @@ class Authentication with ChangeNotifier {
       UserModel res = UserModel.fromJson(response.data);
       _user = res.data!.user;
       CacheHelper.setData(key: "token", value: res.data!.accessToken);
+      CacheHelper.setData(key: "userId", value: res.data!.user!.userId);
       token = res.data!.accessToken;
+
       notifyListeners();
     } on DioError catch (e) {
       throw (e.response?.data['message']);
@@ -56,7 +58,9 @@ class Authentication with ChangeNotifier {
       UserModel res = UserModel.fromJson(response.data);
       _user = res.data!.user;
       CacheHelper.setData(key: "token", value: res.data!.accessToken);
+      CacheHelper.setData(key: "userId", value: res.data!.user!.userId);
       token = res.data!.accessToken;
+
       notifyListeners();
     } on DioError catch (e) {
       throw (e.response?.data['message']);

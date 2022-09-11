@@ -10,6 +10,7 @@ class Product extends ChangeNotifier {
   List<Products> _allProducts = [];
 
   List<Products> get allProducts => _allProducts;
+
   Future<List<Products?>> getAllProducts() async {
     _allProducts.clear();
     try {
@@ -18,7 +19,6 @@ class Product extends ChangeNotifier {
 
       ProductsModel res = ProductsModel.fromJson(response.data);
       _allProducts = res.data!;
-      // print(res.data);
       notifyListeners();
     } on DioError catch (e) {
       throw (e.response?.data['message']);

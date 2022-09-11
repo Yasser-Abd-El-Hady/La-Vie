@@ -27,6 +27,8 @@ Widget customText({
         fontFamily: fontFamily,
         fontStyle: fontStyle,
         backgroundColor: backgroundColor,
-        overflow: overflow),
+        overflow: overflow,
+        letterSpacing: letterSpacing,
+        height: height),
   );
 }
