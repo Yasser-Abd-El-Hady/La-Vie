@@ -18,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
     ToastContext().init(context);
     var provider = Provider.of<UserProvider>(context).userData!;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Stack(
@@ -404,6 +405,199 @@ class ProfileScreen extends StatelessWidget {
                                             Toast.show("$value");
                                           }
                                         });
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Screen.screenHeight / (926 / 20)),
+                        Container(
+                          width: Screen.screenWidth / (428 / 378),
+                          height: Screen.screenHeight / (926 / 100),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.customGrey)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Screen.screenWidth / (428 / 15)),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/images/change.png"),
+                                SizedBox(
+                                    width: Screen.screenWidth / (428 / 15)),
+                                customText(
+                                    text: "Change Email",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20),
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                      child: const Icon(
+                                        Icons.arrow_forward,
+                                        color: Color(0xff1D592C),
+                                        size: 35,
+                                      ),
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        2.0, 2.0, 2.0, 24.0),
+                                                shape: Border.all(
+                                                    color: AppColors.customGrey,
+                                                    width: 2),
+                                                content: SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 130,
+                                                        width: double.infinity,
+                                                        child: Image.asset(
+                                                          "assets/images/freeseed.png",
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 2,
+                                                                bottom: 4),
+                                                        child: Stack(
+                                                          children: [
+                                                            const Center(
+                                                              child: Text(
+                                                                "La Vie",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontFamily:
+                                                                        "Meddon"),
+                                                              ),
+                                                            ),
+                                                            Center(
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/1.png',
+                                                                width: 18,
+                                                                height: 12,
+                                                              ),
+                                                              heightFactor: 2.5,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      customText(
+                                                          text:
+                                                              'Get Seeds For Free',
+                                                          fontFamily:
+                                                              "Karantina",
+                                                          fontSize: 40),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 6),
+                                                        child: customText(
+                                                            text:
+                                                                'Enter Your Address',
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 8,
+                                                                horizontal: 20),
+                                                        child: TextFormField(
+                                                          // controller:
+                                                          //     lNameController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            label:
+                                                                Text("Address"),
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: AppColors
+                                                                      .primary),
+                                                            ),
+                                                          ),
+                                                          validator: (input) {
+                                                            if (input!
+                                                                .isEmpty) {
+                                                              return "Field is Required";
+                                                            }
+                                                            return null;
+                                                          },
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      20),
+                                                          child: SizedBox(
+                                                              width: (double
+                                                                      .infinity /
+                                                                  2),
+                                                              child:
+                                                                  ElevatedButton(
+                                                                child:
+                                                                    const Text(
+                                                                        "Send"),
+                                                                style: ButtonStyle(
+                                                                    backgroundColor:
+                                                                        MaterialStateProperty.all(
+                                                                            AppColors.primary)),
+                                                                onPressed:
+                                                                    () {},
+                                                              ))),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 20),
+                                                        child: SizedBox(
+                                                          width:
+                                                              (double.infinity /
+                                                                  2),
+                                                          child: ElevatedButton(
+                                                            child: const Text(
+                                                              "Save For Later",
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xff979797)),
+                                                            ),
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all(
+                                                                      const Color(
+                                                                          0xffF0F0F0)),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
                                       },
                                     ),
                                   ),

@@ -89,6 +89,9 @@ flutter:
     - family: Meddon
       fonts:
         - asset: assets\fonts\Meddon.ttf
+    - family: Karantina
+      fonts:
+        - asset: assets\fonts\Karantina.ttf
     - family: MyIcons
       fonts:
         - asset: assets\icons\MyIcons.ttf
