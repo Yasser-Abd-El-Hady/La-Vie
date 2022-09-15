@@ -28,23 +28,20 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   bool createPost = false;
   @override
   Widget build(BuildContext context) {
-    Screen(context);
     ToastContext().init(context);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: formState,
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Screen.screenWidth / (428 / 24),
-                  vertical: Screen.screenHeight / (926 / 50)),
-              child: createPost
-                  ? const SizedBox(
-                      height: double.infinity,
-                      child: Center(child: CircularProgressIndicator()))
-                  : Column(
+      body: createPost
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Form(
+                key: formState,
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Screen.screenWidth / (428 / 24),
+                        vertical: Screen.screenHeight / (926 / 50)),
+                    child: Column(
                       children: [
                         Row(children: [
                           Expanded(
@@ -213,10 +210,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         )
                       ],
                     ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
