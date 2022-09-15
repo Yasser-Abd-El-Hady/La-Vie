@@ -1,16 +1,16 @@
-# la_vie
+# La Vie
 
-A new Flutter project.
+* Mobile app using flutter encourages people to care about plants.
 
-## Getting Started
+## App features:
+* Provider state management
+* Dio
+* Sqflite
+* QR scanner  
+* shared preferences.
+* Dealing with rest api.
+* Dealing with figma.
 
-This project is a starting point for a Flutter application.
+## App Demo:
+https://www.linkedin.com/posts/yasser-abd-el-hady_flutter-mobileapp-activity-6976282127013195776-O6oE?utm_source=share&utm_medium=member_desktop
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
