@@ -1,8 +1,8 @@
-## La Vie
+# La Vie
 
 * Mobile app using flutter encourages people to care about plants.
 
-# App features:
+## App features:
 * Provider state management
 * Dio
 * Sqflite
