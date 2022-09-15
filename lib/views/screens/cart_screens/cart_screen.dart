@@ -259,7 +259,7 @@ class CartScreen extends StatelessWidget {
                       Provider.of<Categories>(context, listen: false)
                           .changeSelectedCategory(Category.all);
                       Provider.of<Cart>(context, listen: false).removeAll();
-                      Toast.show("Order will arrive in 2 days");
+                      Toast.show("Order will arrive in 2 days", duration: 3);
                       Navigator.of(context).pop();
                     },
                   ),

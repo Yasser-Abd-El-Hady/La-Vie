@@ -184,7 +184,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               onPressed: () {
                                 if (formState.currentState!.validate()) {
                                   if (image == null) {
-                                    Toast.show("Select image first");
+                                    Toast.show("Select image first",
+                                        duration: 3);
                                   } else {
                                     setState(() {
                                       createPost = true;
@@ -198,10 +199,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                             listen: false)
                                         .createPost(post: post)
                                         .then((value) {
-                                      Toast.show("Post created succefully");
+                                      Toast.show("Post created succefully",
+                                          duration: 2);
                                       Navigator.of(context).pop();
                                     }, onError: (e) {
-                                      Toast.show(e);
+                                      Toast.show(e, duration: 3);
                                     });
                                   }
                                 }

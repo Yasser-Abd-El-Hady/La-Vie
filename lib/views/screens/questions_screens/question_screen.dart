@@ -134,7 +134,7 @@ class _QuestionScreen extends State<QuestionScreen> {
                                           listen: false)
                                       .next();
                                   if (result != null) {
-                                    Toast.show(result);
+                                    Toast.show(result, duration: 2);
                                     if (result.contains("point")) {
                                       Provider.of<BottomNavBar>(context,
                                               listen: false)

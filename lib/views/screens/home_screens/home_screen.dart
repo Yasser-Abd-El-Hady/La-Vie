@@ -204,7 +204,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _showAlert(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context, listen: false).userData!;
     ToastContext().init(context);
     showDialog(
         context: context,
@@ -276,7 +275,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         validator: (input) {
                           if (input!.isEmpty || input.length < 3) {
-                            return "Min 5 letters";
+                            return "Min 3 letters";
                           }
                           return null;
                         },
@@ -295,11 +294,7 @@ class HomeScreen extends StatelessWidget {
                                 if (_key.currentState!.validate()) {
                                   Provider.of<UserProvider>(context,
                                           listen: false)
-                                      .updateData(
-                                          fName: provider.firstName!,
-                                          lName: provider.lastName!,
-                                          email: provider.email!,
-                                          address: addressController.text)
+                                      .addAddress(addressController.text)
                                       .then((value) {
                                     Navigator.pop(context, "Done");
                                   }, onError: (e) {
@@ -335,9 +330,9 @@ class HomeScreen extends StatelessWidget {
         }).then((value) {
       Provider.of<UserProvider>(context, listen: false).changeFreeSeedVal();
       if (value == "Done") {
-        Toast.show("Free seed will arrive in 2 days");
+        Toast.show("Free seed will arrive in 2 days", duration: 3);
       } else if (value != "Cancel" && value != null) {
-        Toast.show("$value");
+        Toast.show("$value", duration: 3);
       }
     });
   }

@@ -269,10 +269,11 @@ class ProfileScreen extends StatelessWidget {
                                             }).then((value) {
                                           if (value == "Save") {
                                             Toast.show(
-                                                "Name changed succefully");
+                                                "Name changed succefully",
+                                                duration: 2);
                                           } else if (value != "Cancel" &&
                                               value != null) {
-                                            Toast.show("$value");
+                                            Toast.show("$value", duration: 3);
                                           }
                                         });
                                       },
@@ -401,10 +402,11 @@ class ProfileScreen extends StatelessWidget {
                                             }).then((value) {
                                           if (value == "Save") {
                                             Toast.show(
-                                                "Email changed succefully");
+                                                "Email changed succefully",
+                                                duration: 2);
                                           } else if (value != "Cancel" &&
                                               value != null) {
-                                            Toast.show("$value");
+                                            Toast.show("$value", duration: 3);
                                           }
                                         });
                                       },
