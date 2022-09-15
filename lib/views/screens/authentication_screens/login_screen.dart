@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/authentication_provider.dart';
 import 'package:la_vie/provider/bottom_nav_bar.dart';
+import 'package:la_vie/provider/user_profile_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/views/components/text_form_field.dart';
 import 'package:la_vie/views/screens/main_screens/app_layout_screen.dart';
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textFormField(
                           labelName: "Password",
                           controller: _passwordController,
-                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
                           validator: (input) {
                             if (input!.isEmpty || input.length < 5) {
                               return "Password length must be greater than 5 characters";
@@ -165,6 +166,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Provider.of<BottomNavBar>(context,
                                                 listen: false)
                                             .changeSelected(2);
+                                        Provider.of<UserProvider>(context,
+                                                listen: false)
+                                            .changeFreeSeedVal();
                                         Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>

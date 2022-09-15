@@ -149,6 +149,7 @@ class _QRScreenState extends State<QRScreen> {
 
       if (result != null) {
         controller.dispose();
+        print("Code ${result!.code}");
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ScanDetailsScreen(code: result!.code)));
       }

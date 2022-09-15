@@ -11,7 +11,13 @@ import 'package:la_vie/utils/constants.dart';
 class UserProvider with ChangeNotifier {
   UserProfile? _userData;
 
+  bool freeSeedAlert = false;
+
   UserProfile? get userData => _userData;
+
+  void changeFreeSeedVal() {
+    freeSeedAlert = !freeSeedAlert;
+  }
 
   Future<UserProfile?> getUserData() async {
     try {

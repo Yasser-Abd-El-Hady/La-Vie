@@ -8,6 +8,7 @@ import 'package:la_vie/utils/my_icons_icons.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/forums.dart';
 import 'package:la_vie/views/screens/forums_screens/craete_post_screen.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/custom_text.dart';
@@ -24,9 +25,10 @@ class DiscussionForumsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Screen.screenWidth / (428 / 24),
-              vertical: Screen.screenHeight / (926 / 50)),
+          padding: EdgeInsets.only(
+              left: Screen.screenWidth / (428 / 24),
+              right: Screen.screenWidth / (428 / 24),
+              top: Screen.screenHeight / (926 / 50)),
           child: Column(
             children: [
               customText(
@@ -58,7 +60,7 @@ class DiscussionForumsScreen extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(
                       top: Screen.screenHeight / (926 / 15),
-                      bottom: Screen.screenHeight / (926 / 22)),
+                      bottom: Screen.screenHeight / (926 / 10)),
                   child: forumsType(type: "all", context: context)),
               Expanded(
                 child: (Provider.of<ForumsType>(context, listen: false)
@@ -78,15 +80,12 @@ class DiscussionForumsScreen extends StatelessWidget {
                             textAlign: TextAlign.center))
                     : ListView.builder(
                         itemCount:
-                            Provider.of<ForumsType>(context, listen: false)
-                                        .pageSelected ==
+                            Provider.of<ForumsType>(context).pageSelected ==
                                     "all"
                                 ? providerAll.length
                                 : providerMy.length,
                         itemBuilder: (context, index) {
-                          Provider.of<ForumsType>(context, listen: false)
-                                      .pageSelected ==
-                                  "all"
+                          Provider.of<ForumsType>(context).pageSelected == "all"
                               ? provider = providerAll
                               : provider = providerMy;
                           return Padding(
@@ -216,10 +215,19 @@ class DiscussionForumsScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               Expanded(
-                                                  child: Image.network(
-                                                url + provider[index].imageUrl!,
-                                                fit: BoxFit.cover,
-                                              ))
+                                                  child: provider[index]
+                                                              .imageUrl !=
+                                                          null
+                                                      ? Image.network(
+                                                          url +
+                                                              provider[index]
+                                                                  .imageUrl,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.asset(
+                                                          "assets/images/post.png",
+                                                          fit: BoxFit.cover,
+                                                        ))
                                             ]),
                                       ),
                                     ),
@@ -229,20 +237,62 @@ class DiscussionForumsScreen extends StatelessWidget {
                                               Screen.screenHeight / (926 / 12)),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                Screen.screenWidth / (428 / 5)),
+                                            horizontal: Screen.screenWidth /
+                                                (428 / 15)),
                                         child: Padding(
                                           padding:
                                               const EdgeInsets.only(bottom: 10),
                                           child: Row(
                                             children: [
-                                              const Icon(MyIcons.like),
+                                              LikeButton(
+                                                circleColor: CircleColor(
+                                                  start: Colors.blue[900]!,
+                                                  end: Colors.blue[900]!,
+                                                ),
+                                                bubblesColor: BubblesColor(
+                                                  dotPrimaryColor:
+                                                      Colors.blue[900]!,
+                                                  dotSecondaryColor:
+                                                      Colors.blue[900]!,
+                                                ),
+                                                likeBuilder: (bool isLiked) {
+                                                  return Icon(
+                                                    MyIcons.like,
+                                                    color: isLiked
+                                                        ? Colors.blue[900]
+                                                        : Colors.grey,
+                                                  );
+                                                },
+                                                likeCount: provider[index]
+                                                    .forumLikes!
+                                                    .length,
+                                                countBuilder: (int? count,
+                                                    bool isLiked, String text) {
+                                                  var color = isLiked
+                                                      ? Colors.blue[900]
+                                                      : Colors.grey;
+                                                  Widget result;
+                                                  if (count == 0) {
+                                                    result = Text(
+                                                      "0",
+                                                      style: TextStyle(
+                                                          color: color),
+                                                    );
+                                                  } else {
+                                                    result = Text(
+                                                      text,
+                                                      style: TextStyle(
+                                                          color: color),
+                                                    );
+                                                  }
+                                                  return result;
+                                                },
+                                              ),
                                               SizedBox(
                                                   width: Screen.screenWidth /
-                                                      (428 / 8)),
+                                                      (428 / 3)),
                                               customText(
-                                                  text:
-                                                      "${provider[index].forumLikes!.length} Likes",
+                                                  text: "Likes",
                                                   color: AppColors.customGrey),
                                               Padding(
                                                   padding: EdgeInsets.only(

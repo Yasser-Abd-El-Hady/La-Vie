@@ -61,8 +61,9 @@ class ProductsScreen extends StatelessWidget {
                                     Stack(clipBehavior: Clip.none, children: [
                                   Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: provider[index].imageUrl == ""
-                                          ? Image.asset("assets/images/55.png")
+                                      child: index == 2
+                                          ? Image.asset(
+                                              "assets/images/plant.png")
                                           : Image.network(
                                               url + provider[index].imageUrl!)),
                                   Padding(

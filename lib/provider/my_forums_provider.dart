@@ -20,7 +20,7 @@ class MyForumsProvider with ChangeNotifier {
           "${DioClient.url}/api/v1/forums/me",
           options: Options(headers: ({'Authorization': 'Bearer $token'})));
       MyForumsModel res = MyForumsModel.fromJson(response.data);
-      _myForums = res.data!;
+      _myForums = res.data ?? [];
       notifyListeners();
     } on DioError catch (e) {
       throw (e.response?.data['message']);
@@ -53,6 +53,7 @@ class MyForumsProvider with ChangeNotifier {
       // print('Post created: ${response.data}');
 
       retrievedPost = MyForums.fromJson(response.data);
+      getMyForums();
     } on DioError catch (e) {
       throw e.response!.data;
       // if (e.response != null) {

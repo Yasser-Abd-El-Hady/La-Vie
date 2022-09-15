@@ -63,7 +63,8 @@ class SeedsScreen extends StatelessWidget {
                                           topLeft: Radius.circular(12),
                                           topRight: Radius.circular(12)),
                                       child: provider[index].imageUrl == ""
-                                          ? Image.asset("assets/images/55.png")
+                                          ? Image.asset(
+                                              "assets/images/plant5.png")
                                           : Image.network(
                                               url + provider[index].imageUrl!,
                                               width: double.infinity,

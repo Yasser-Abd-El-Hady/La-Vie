@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/utils/color.dart';
 
-Widget textFormField({
-  TextEditingController? controller,
-  required String labelName,
-  String? Function(String?)? validator,
-  TextInputType? keyboardType,
-}) {
+Widget textFormField(
+    {TextEditingController? controller,
+    required String labelName,
+    String? Function(String?)? validator,
+    TextInputType? keyboardType,
+    bool obscureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -15,6 +15,7 @@ Widget textFormField({
       TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          obscureText: obscureText,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.all(10),
             border: OutlineInputBorder(),

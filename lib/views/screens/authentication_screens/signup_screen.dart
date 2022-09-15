@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/authentication_provider.dart';
+import 'package:la_vie/provider/bottom_nav_bar.dart';
+import 'package:la_vie/provider/user_profile_provider.dart';
 import 'package:la_vie/utils/color.dart';
 import 'package:la_vie/utils/screen.dart';
 import 'package:la_vie/views/components/text_form_field.dart';
@@ -202,6 +204,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               password:
                                                   _passwordController.text)
                                           .then((value) {
+                                        Provider.of<BottomNavBar>(context,
+                                                listen: false)
+                                            .changeSelected(2);
+                                        Provider.of<UserProvider>(context,
+                                                listen: false)
+                                            .changeFreeSeedVal();
                                         Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_vie/provider/all_forums_provider.dart';
 import 'package:la_vie/provider/authentication_provider.dart';
+import 'package:la_vie/provider/blog_provider.dart';
 import 'package:la_vie/provider/bottom_nav_bar.dart';
 import 'package:la_vie/provider/cart_provider.dart';
 import 'package:la_vie/provider/categories.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Tool>(create: (_) => Tool()),
         ChangeNotifierProvider<Plant>(create: (_) => Plant()),
         ChangeNotifierProvider<Product>(create: (_) => Product()),
+        ChangeNotifierProvider<Blog>(create: (_) => Blog()),
         ChangeNotifierProvider<AllForumsProvider>(
             create: (_) => AllForumsProvider()),
         ChangeNotifierProvider<MyForumsProvider>(
