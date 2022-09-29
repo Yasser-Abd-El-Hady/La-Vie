@@ -140,9 +140,9 @@ class CartScreen extends StatelessWidget {
                                                     child: Center(
                                                       child: customText(
                                                           text: "-",
-                                                          fontSize: 17,
+                                                          fontSize: 20,
                                                           fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w800,
                                                           color: AppColors
                                                               .primary),
                                                     ),
